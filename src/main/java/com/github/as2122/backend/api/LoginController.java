@@ -3,12 +3,11 @@ package com.github.as2122.backend.api;
 import com.github.as2122.backend.accounts.AccountManagerInterface;
 import com.github.as2122.backend.api.requests.Login;
 import com.github.as2122.backend.api.requests.Request;
+import com.github.as2122.backend.api.responses.LoginResponse;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.lang.reflect.Type;
 
 @RestController
 public class LoginController {
@@ -25,8 +24,10 @@ public class LoginController {
     public String login(String request) {
         final Login loginRequest = (Login) jsonParser.fromJson(request, Request.class).getParams();
         if (loginRequest == null)
-            return null;
+            return jsonParser.toJson(new LoginResponse("rejected", null));
 
-        return accountManager.getToken(loginRequest.getUsername(), loginRequest.getPassword());
+        final String token = accountManager.login(loginRequest.getUsername(), loginRequest.getPassword());
+
+        return jsonParser.toJson(new LoginResponse("accepted", token));
     }
 }

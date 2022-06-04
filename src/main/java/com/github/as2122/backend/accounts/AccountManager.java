@@ -5,7 +5,7 @@ public class AccountManager implements AccountManagerInterface {
 
 
     @Override
-    public String getToken(String username, String password) {
+    public String login(String username, String password) {
         return null;
     }
 }
