@@ -1,6 +1,6 @@
 package com.github.as2122.backend.api.responses;
 
-public class LoginResponse extends Response{
+public class LoginResponse extends Response {
 
     final String token;
 
