@@ -28,7 +28,7 @@ public class CreateWorkflow {
             return jsonParser.toJson(new WorkflowResponse("rejected"));
         }
         String name = "request should send a name???";
-        workflowManager.createWorkflow(name, new Workflow(name, createWorkflowRequest.getSteps()));
+        workflowManager.createWorkflow(new Workflow(name, createWorkflowRequest.getSteps()));
         return jsonParser.toJson(new WorkflowResponse("accepted"));
     }
 }

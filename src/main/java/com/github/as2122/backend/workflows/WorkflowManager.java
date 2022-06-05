@@ -9,32 +9,33 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class WorkflowManager {
-    private static final Map<String, Workflow> workflows = new HashMap<>();
+    private static final Map<Integer, Workflow> workflows = new HashMap<>();
 
-    public Map<String, Workflow> getWorkflows() {
+    public Map<Integer, Workflow> getWorkflows() {
         return workflows;
     }
 
-    public Workflow getWorkflow(String name) {
-        if (workflows.containsKey(name)) {
-            return workflows.get(name);
+    public Workflow getWorkflow(int workflow) {
+        if (workflows.containsKey(workflow)) {
+            return workflows.get(workflow);
         }
         return null;
     }
 
-    public boolean createWorkflow(String name, Workflow workflow) {
-        if (workflows.containsKey(name)) {
+    public boolean createWorkflow(Workflow workflow) {
+        int id = workflow.getId();
+        if (workflows.containsKey(id)) {
             return false;
         }
-        workflows.put(name, workflow);
+        workflows.put(id, workflow);
         return true;
     }
 
-    public boolean incrementWorkflow(String name, String fileName) {
-        if (!workflows.containsKey(name)) {
+    public boolean incrementWorkflow(int workflow, String fileName) {
+        if (!workflows.containsKey(workflow)) {
             return false;
         }
-        workflows.get(name).incrementWorkflow(fileName);
+        workflows.get(workflow).increment(fileName);
         return true;
     }
 
@@ -42,7 +43,7 @@ public class WorkflowManager {
         List<UserWorkflow> res = new ArrayList<>();
         for (Workflow wf: workflows.values()) {
             if (wf.userInWorkflow(user)) {
-                res.add(new UserWorkflow(wf.getName(), wf.getPending(user), 420));
+                res.add(new UserWorkflow(wf.getName(), wf.getPending(user), wf.getId()));
             }
         }
         return (UserWorkflow[]) res.toArray();

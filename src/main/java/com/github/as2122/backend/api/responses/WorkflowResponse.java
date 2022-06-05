@@ -7,7 +7,7 @@ public class WorkflowResponse extends Response {
 
     public WorkflowResponse(String status) {
         super(status);
-        workflows = null;
+        workflows = new UserWorkflow[0];
     }
     
     public WorkflowResponse(String status, UserWorkflow[] workflows) {

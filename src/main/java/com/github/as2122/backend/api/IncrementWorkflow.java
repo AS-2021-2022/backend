@@ -27,8 +27,9 @@ public class IncrementWorkflow {
         if (incrementWorkflowRequest == null) {
             return jsonParser.toJson(new WorkflowResponse("rejected"));
         }
-        String name = "request should send a name???";
-        workflowManager.incrementWorkflow(name, incrementWorkflowRequest.getName()); // missing user permission check
+        if (!workflowManager.incrementWorkflow(incrementWorkflowRequest.getId(), incrementWorkflowRequest.getName())) {
+            return jsonParser.toJson(new WorkflowResponse("rejected"));
+        } // missing user permission check, need user id in request?
         return jsonParser.toJson(new WorkflowResponse("accepted"));
     }
 }

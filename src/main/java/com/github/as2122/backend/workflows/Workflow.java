@@ -1,17 +1,30 @@
 package com.github.as2122.backend.workflows;
 
 public class Workflow {
+    private static int STATIC_ID = 0;
+    private final int id;
     private final String name;
     private final WorkflowStep[] steps;
+    private final int[] files;
     private int step = 0;
 
-    public Workflow(String name, WorkflowStep[] steps) {
+    public Workflow(String name, WorkflowStep[] steps, int[] files) {
+        this.id = STATIC_ID++;
         this.name = name;
         this.steps = steps;
+        this.files = files;
+    }
+
+    public Workflow(String name, WorkflowStep[] steps) {
+        this(name, steps, new int[0]);
     }
 
     public Workflow(String name) {
-        this(name, null);
+        this(name, new WorkflowStep[0]);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -20,6 +33,10 @@ public class Workflow {
 
     public WorkflowStep[] getSteps() {
         return steps;
+    }
+
+    public int[] getFiles() {
+        return files;
     }
 
     public int getStep() {
@@ -35,7 +52,7 @@ public class Workflow {
         return false;
     }
 
-    public boolean incrementWorkflow(String fileName) {
+    public boolean increment(String fileName) {
         if (step >= steps.length) {
             return false;
         }

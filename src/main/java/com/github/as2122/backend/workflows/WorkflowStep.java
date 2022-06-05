@@ -6,7 +6,7 @@ public class WorkflowStep {
     private String fileName;
 
     public WorkflowStep(int id, String description) {
-        this(id, description, null);
+        this(id, description, "");
     }
 
     public WorkflowStep(int id, String description, String fileName) {
