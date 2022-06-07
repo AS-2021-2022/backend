@@ -17,6 +17,9 @@ public class StaticAccountManager implements AccountManagerInterface {
 
     @Override
     public String login(String username, String password) {
+        if (!accounts.containsKey(username) || !accounts.get(username).getPassword().equals(password))
+            return null;
+
         if (allowedTokens.containsKey(username))
             return allowedTokens.get(username);
 

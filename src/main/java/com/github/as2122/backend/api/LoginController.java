@@ -21,13 +21,15 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String login(String request) {
-        final Login loginRequest = (Login) jsonParser.fromJson(request, Request.class).getParams();
+    public String login(String username, String password) {
+//        final Login loginRequest = (Login) jsonParser.fromJson(request, Request.class).getParams();
+        final Login loginRequest = new Login(username, password);
+
         if (loginRequest == null)
             return jsonParser.toJson(new LoginResponse("rejected", null));
 
         final String token = accountManager.login(loginRequest.getUsername(), loginRequest.getPassword());
 
-        return jsonParser.toJson(new LoginResponse("accepted", token));
+        return token == null ? jsonParser.toJson(new LoginResponse("rejected", null)) : jsonParser.toJson(new LoginResponse("accepted", token));
     }
 }
