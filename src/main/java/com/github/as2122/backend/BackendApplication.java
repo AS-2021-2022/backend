@@ -2,8 +2,10 @@ package com.github.as2122.backend;
 
 import com.github.as2122.backend.accounts.AccountManagerInterface;
 import com.github.as2122.backend.accounts.StaticAccountManager;
-import com.github.as2122.backend.api.RequestDeserializer;
+import com.github.as2122.backend.api.requests.RequestDeserializer;
 import com.github.as2122.backend.api.requests.Request;
+import com.github.as2122.backend.chat.ChatManager;
+import com.github.as2122.backend.teams.TeamManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.boot.SpringApplication;
@@ -26,6 +28,16 @@ public class BackendApplication {
 	@Bean
 	public AccountManagerInterface accountManager(){
 		return new StaticAccountManager();
+	}
+
+	@Bean
+	public ChatManager chatManager() {
+		return new ChatManager(accountManager());
+	}
+
+	@Bean
+	public TeamManager teamManager() {
+		return new TeamManager(accountManager());
 	}
 
 	public static void main(String[] args) {

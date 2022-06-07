@@ -1,4 +1,4 @@
-package com.github.as2122.backend.api;
+package com.github.as2122.backend.api.requests;
 
 import com.github.as2122.backend.api.requests.Login;
 import com.github.as2122.backend.api.requests.Request;
