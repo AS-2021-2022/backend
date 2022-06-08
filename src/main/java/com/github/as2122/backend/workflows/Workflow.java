@@ -1,5 +1,7 @@
 package com.github.as2122.backend.workflows;
 
+import java.util.Objects;
+
 public class Workflow {
     private static int STATIC_ID = 0;
     private final int id;
@@ -43,9 +45,9 @@ public class Workflow {
         return step;
     }
 
-    public boolean userInWorkflow(int id) {
+    public boolean userInWorkflow(String id) {
         for (WorkflowStep step: steps) {
-            if (step.getId() == id) {
+            if (step.getId().equals(id)) {
                 return true;
             }
         }
@@ -61,9 +63,9 @@ public class Workflow {
         return true;
     }
 
-    public boolean getPending(int user) {
+    public boolean getPending(String user) {
         for (int i = step; i < steps.length; i++) {
-            if (steps[i].getId() == user) {
+            if (Objects.equals(steps[i].getId(), user)) {
                 return true;
             }
         }

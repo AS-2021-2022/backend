@@ -6,6 +6,7 @@ import com.github.as2122.backend.api.requests.RequestDeserializer;
 import com.github.as2122.backend.api.requests.Request;
 import com.github.as2122.backend.chat.ChatManager;
 import com.github.as2122.backend.teams.TeamManager;
+import com.github.as2122.backend.workflows.WorkflowManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.boot.SpringApplication;
@@ -33,6 +34,11 @@ public class BackendApplication {
 	@Bean
 	public ChatManager chatManager() {
 		return new ChatManager(accountManager());
+	}
+
+	@Bean
+	public WorkflowManager workflowManager() {
+		return new WorkflowManager();
 	}
 
 	@Bean

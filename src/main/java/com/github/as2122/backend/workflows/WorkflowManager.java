@@ -39,13 +39,13 @@ public class WorkflowManager {
         return true;
     }
 
-    public UserWorkflow[] getUserWorkflows(int user) {
+    public List<UserWorkflow> getUserWorkflows(String user) {
         List<UserWorkflow> res = new ArrayList<>();
         for (Workflow wf: workflows.values()) {
             if (wf.userInWorkflow(user)) {
                 res.add(new UserWorkflow(wf.getName(), wf.getPending(user), wf.getId()));
             }
         }
-        return (UserWorkflow[]) res.toArray();
+        return res;
     }
 }

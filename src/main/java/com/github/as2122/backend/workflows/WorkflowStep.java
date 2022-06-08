@@ -1,21 +1,21 @@
 package com.github.as2122.backend.workflows;
 
 public class WorkflowStep {
-    private final int id;
+    private final String id;
     private final String description;
     private String fileName;
 
-    public WorkflowStep(int id, String description) {
+    public WorkflowStep(String id, String description) {
         this(id, description, "");
     }
 
-    public WorkflowStep(int id, String description, String fileName) {
+    public WorkflowStep(String id, String description, String fileName) {
         this.id = id;
         this.description = description;
         this.fileName = fileName;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
