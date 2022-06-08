@@ -5,11 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
+//import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class WorkflowManager {
-    private static final Map<Integer, Workflow> workflows = new HashMap<>();
+    private final Map<Integer, Workflow> workflows = new HashMap<>();
+
+    public WorkflowManager() {
+        workflows.put(0, new Workflow("name"));
+    }
 
     public Map<Integer, Workflow> getWorkflows() {
         return workflows;

@@ -22,13 +22,12 @@ public class CreateWorkflow {
     }
 
     @GetMapping("/createWorkflow")
-    public String createWorkflow(String request) {
+    public String createWorkflow(String token, String request) {
         CreateWorkflowRequest createWorkflowRequest = (CreateWorkflowRequest) jsonParser.fromJson(request, Request.class).getParams();
         if (createWorkflowRequest == null) {
             return jsonParser.toJson(new WorkflowResponse("rejected"));
         }
-        String name = "request should send a name???";
-        workflowManager.createWorkflow(new Workflow(name, createWorkflowRequest.getSteps()));
+        workflowManager.createWorkflow(new Workflow(createWorkflowRequest.getName(), createWorkflowRequest.getSteps()));
         return jsonParser.toJson(new WorkflowResponse("accepted"));
     }
 }
