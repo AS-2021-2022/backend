@@ -23,7 +23,7 @@ public class GetContactMessages {
     }
 
     @GetMapping("/contactMessages")
-    public String getContactMessages(String token, String taregtID, int depth, int n) {
-        return jsonSerializer.toJson(new GetContactMessagesResponse("accepted", chatManager.getMessages(taregtID, depth, n)));
+    public String getContactMessages(String token, String targetID, int depth, int n) {
+        return jsonSerializer.toJson(new GetContactMessagesResponse("accepted", chatManager.getMessages(targetID, depth, n)));
     }
 }

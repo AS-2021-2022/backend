@@ -36,9 +36,14 @@ public class ChatManager {
         g1.add(accountManager.getByName("user7").toContact());
         g1.add(accountManager.getByName("user8").toContact());
 
-        groups.put(new Group("g1", "g1#0001"), g1);
-        groups.put(new Group("g2", "g2#0002"), g2);
-        groups.put(new Group("g3", "g3#0003"), g3);
+        groups.put(new Group("g1", "g10001"), g1);
+        groups.put(new Group("g2", "g20002"), g2);
+        groups.put(new Group("g3", "g30003"), g3);
+
+        idMessages.put("g10001", new ArrayList<>());
+        idMessages.get("g10001").add(new Message("user1", "hello"));
+        idMessages.get("g10001").add(new Message("user2", "hi"));
+        idMessages.get("g10001").add(new Message("user3", "silence please don't clog my email"));
     }
 
     public List<Group> getGroupsForUser(String username) {
@@ -59,8 +64,11 @@ public class ChatManager {
     }
 
     public List<Message> getMessages(String chatID, int start, int n) {
-        if (!idMessages.containsKey(chatID))
+        if (!idMessages.containsKey(chatID)) {
+            System.out.println("NO CONTAINS! " + chatID);
+            idMessages.keySet().forEach(System.out::println);
             return new ArrayList<>();
+        }
 
         return idMessages.get(chatID).stream().skip(start).limit(n).collect(Collectors.toList());
     }
