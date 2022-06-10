@@ -61,7 +61,7 @@ public class ChatManager {
     }
 
     public void sendMessage(String sender, String destId, String message) {
-        if (!destId.contains("@")) {
+        if (!destId.contains("@") && !idMessages.containsKey(destId)) {
             idMessages.put(destId, new ArrayList<>());
         } else if (!idMessages.containsKey(destId + sender) && !idMessages.containsKey(sender + destId)) {
             destId = sender + destId;
