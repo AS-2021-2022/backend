@@ -41,13 +41,13 @@ public class ChatManager {
         groups.put(new Group("g3", "g30003"), g3);
 
         idMessages.put("g10001", new ArrayList<>());
-        idMessages.get("g10001").add(new Message("user1", "hello"));
-        idMessages.get("g10001").add(new Message("user2", "hi"));
-        idMessages.get("g10001").add(new Message("user3", "silence please don't clog my email"));
+        idMessages.get("g10001").add(new Message("user1@nsn.pt", "hello"));
+        idMessages.get("g10001").add(new Message("user2@nsn.pt", "hi"));
+        idMessages.get("g10001").add(new Message("user3@nsn.pt", "silence please don't clog my email"));
 
         idMessages.put("user1@nsn.ptuser2@nsn.pt", new ArrayList<>());
-        idMessages.get("user1@nsn.ptuser2@nsn.pt").add(new Message("user1", "hello"));
-        idMessages.get("user1@nsn.ptuser2@nsn.pt").add(new Message("user2", "go to work"));
+        idMessages.get("user1@nsn.ptuser2@nsn.pt").add(new Message("user1@nsn.pt", "hello"));
+        idMessages.get("user1@nsn.ptuser2@nsn.pt").add(new Message("user2@nsn.pt", "go to work"));
     }
 
     public List<Group> getGroupsForUser(String username) {
@@ -61,10 +61,9 @@ public class ChatManager {
     }
 
     public void sendMessage(String sender, String destId, String message) {
-        if (!idMessages.containsKey(destId))
+        if (!destId.contains("@")) {
             idMessages.put(destId, new ArrayList<>());
-
-        if (!idMessages.containsKey(destId + sender) && !idMessages.containsKey(sender + destId)) {
+        } else if (!idMessages.containsKey(destId + sender) && !idMessages.containsKey(sender + destId)) {
             destId = sender + destId;
             idMessages.put(destId, new ArrayList<>());
         } else if (idMessages.containsKey(destId + sender)) {
@@ -72,6 +71,8 @@ public class ChatManager {
         } else {
             destId = sender + destId;
         }
+
+        System.out.println("DESTID: " + destId);
 
         idMessages.get(destId).add(new Message(sender, message));
     }
