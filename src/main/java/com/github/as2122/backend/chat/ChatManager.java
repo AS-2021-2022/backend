@@ -44,6 +44,10 @@ public class ChatManager {
         idMessages.get("g10001").add(new Message("user1", "hello"));
         idMessages.get("g10001").add(new Message("user2", "hi"));
         idMessages.get("g10001").add(new Message("user3", "silence please don't clog my email"));
+
+        idMessages.put("user1user2", new ArrayList<>());
+        idMessages.get("user1user2").add(new Message("user1", "hello"));
+        idMessages.get("user1user2").add(new Message("user2", "go to work"));
     }
 
     public List<Group> getGroupsForUser(String username) {
@@ -60,16 +64,28 @@ public class ChatManager {
         if (!idMessages.containsKey(destId))
             idMessages.put(destId, new ArrayList<>());
 
+        if (!idMessages.containsKey(destId + sender) && !idMessages.containsKey(sender + destId)) {
+            destId = sender + destId;
+            idMessages.put(destId, new ArrayList<>());
+        } else if (idMessages.containsKey(destId + sender)) {
+            destId = destId + sender;
+        } else {
+            destId = sender + destId;
+        }
+
         idMessages.get(destId).add(new Message(sender, message));
     }
 
-    public List<Message> getMessages(String chatID, int start, int n) {
-        if (!idMessages.containsKey(chatID)) {
-            System.out.println("NO CONTAINS! " + chatID);
-            idMessages.keySet().forEach(System.out::println);
+    public List<Message> getMessages(String sender, String chatID, int start, int n) {
+        if (idMessages.containsKey(chatID + sender)) {
+            chatID = chatID + sender;
+        } else if (idMessages.containsKey(sender + chatID)){
+            chatID = sender + chatID;
+        } else {
             return new ArrayList<>();
         }
 
+        System.out.println("FinalChatId: " + chatID);
         return idMessages.get(chatID).stream().skip(start).limit(n).collect(Collectors.toList());
     }
 }

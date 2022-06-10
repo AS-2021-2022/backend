@@ -10,7 +10,6 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @WebMvcTest(GetContactMessages.class)
@@ -22,7 +21,7 @@ class GetContactMessagesTest {
     private AccountManagerInterface accountManager;
 
     @Test
-    public void testGetMessages() throws Exception {
+    public void testGroupMessages() throws Exception {
         final String sender = accountManager.login("user1", "password1");
 //        final String receiver = accountManager.login("user2", "password2");
 
@@ -31,6 +30,32 @@ class GetContactMessagesTest {
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.jsonPath("status").value("accepted"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("messages").value("[{\"origin\":\"user1\",\"text\":\"hello\"},{\"origin\":\"user2\",\"text\":\"hi\"},{\"origin\":\"user3\",\"text\":\"silence please don\\u0027t clog my email\"}]"))
+                .andReturn();
+    }
+
+    @Test
+    public void testDirectMessages() throws Exception {
+        final String usr1 = accountManager.login("user1", "password1");
+        final String usr2 = accountManager.login("user2", "password2");
+
+        final RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .get("/contactMessages?token="+usr1+"&targetID="+"user2"+"&depth=0&n=10")
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder)
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.jsonPath("status").value("accepted"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("messages").value("[{\"origin\":\"user1\",\"text\":\"hello\"},{\"origin\":\"user2\",\"text\":\"hi\"},{\"origin\":\"user3\",\"text\":\"silence please don\\u0027t clog my email\"}]"))
+                .andReturn();
+
+        final RequestBuilder requestBuilder2 = MockMvcRequestBuilders
+                .get("/contactMessages?token="+usr2+"&targetID="+"user1"+"&depth=0&n=10")
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder2)
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("status").value("accepted"))
 //                .andExpect(MockMvcResultMatchers.jsonPath("messages").value("[{\"origin\":\"user1\",\"text\":\"hello\"},{\"origin\":\"user2\",\"text\":\"hi\"},{\"origin\":\"user3\",\"text\":\"silence please don\\u0027t clog my email\"}]"))

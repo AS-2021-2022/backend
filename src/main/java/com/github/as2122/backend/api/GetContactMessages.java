@@ -14,16 +14,21 @@ public class GetContactMessages {
 
     private final Gson jsonSerializer;
     private final ChatManager chatManager;
-//    private final AccountManagerInterface accountManager;
+    private final AccountManagerInterface accountManager;
 
-    public GetContactMessages(ChatManager chatManager, /*AccountManagerInterface accountManager,*/ Gson jsonSerializer) {
+    public GetContactMessages(ChatManager chatManager, AccountManagerInterface accountManager, Gson jsonSerializer) {
         this.chatManager = chatManager;
-//        this.accountManager = accountManager;
+        this.accountManager = accountManager;
         this.jsonSerializer = jsonSerializer;
     }
 
     @GetMapping("/contactMessages")
     public String getContactMessages(String token, String targetID, int depth, int n) {
-        return jsonSerializer.toJson(new GetContactMessagesResponse("accepted", chatManager.getMessages(targetID, depth, n)));
+        return jsonSerializer.toJson(
+                new GetContactMessagesResponse("accepted",
+                        chatManager.getMessages(accountManager.getByToken(token),
+                                targetID, depth, n)
+                )
+        );
     }
 }
