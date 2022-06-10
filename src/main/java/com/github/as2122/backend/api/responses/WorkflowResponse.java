@@ -2,7 +2,6 @@ package com.github.as2122.backend.api.responses;
 
 import com.github.as2122.backend.workflows.UserWorkflow;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WorkflowResponse extends Response {
@@ -10,7 +9,7 @@ public class WorkflowResponse extends Response {
 
     public WorkflowResponse(String status) {
         super(status);
-        workflows = new ArrayList<>();
+        workflows = null;
     }
     
     public WorkflowResponse(String status, List<UserWorkflow> workflows) {

@@ -28,6 +28,7 @@ class CreateWorkflowTest {
                 .content("{\"name\":\"xd\", \"steps\": [{\"id\":\"user1\",\"description\":\"bababowie\"}]}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("status").value("accepted"))
                 .andReturn();
     }
