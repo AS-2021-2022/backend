@@ -26,9 +26,11 @@ class LoginControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
+                .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("token").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("token").isNotEmpty())
                 .andExpect(MockMvcResultMatchers.jsonPath("status").value("accepted"))
+                .andExpect(MockMvcResultMatchers.jsonPath("email").value("user1@nsn.pt"))
                 .andReturn();
     }
 

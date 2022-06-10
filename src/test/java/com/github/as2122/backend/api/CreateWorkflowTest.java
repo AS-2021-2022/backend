@@ -22,7 +22,7 @@ class CreateWorkflowTest {
     private AccountManagerInterface accountManager;
 
     @Test
-    public void getWorkflow() throws Exception {
+    public void createWorkflow() throws Exception {
         final String user = accountManager.login("user1", "password1");
 
         final RequestBuilder requestBuilder = MockMvcRequestBuilders
