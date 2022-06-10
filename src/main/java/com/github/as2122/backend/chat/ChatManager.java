@@ -45,9 +45,9 @@ public class ChatManager {
         idMessages.get("g10001").add(new Message("user2", "hi"));
         idMessages.get("g10001").add(new Message("user3", "silence please don't clog my email"));
 
-        idMessages.put("user1user2", new ArrayList<>());
-        idMessages.get("user1user2").add(new Message("user1", "hello"));
-        idMessages.get("user1user2").add(new Message("user2", "go to work"));
+        idMessages.put("user1@nsn.ptuser2@nsn.pt", new ArrayList<>());
+        idMessages.get("user1@nsn.ptuser2@nsn.pt").add(new Message("user1", "hello"));
+        idMessages.get("user1@nsn.ptuser2@nsn.pt").add(new Message("user2", "go to work"));
     }
 
     public List<Group> getGroupsForUser(String username) {

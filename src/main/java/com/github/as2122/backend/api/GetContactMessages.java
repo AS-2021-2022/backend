@@ -26,7 +26,8 @@ public class GetContactMessages {
     public String getContactMessages(String token, String targetID, int depth, int n) {
         return jsonSerializer.toJson(
                 new GetContactMessagesResponse("accepted",
-                        chatManager.getMessages(accountManager.getByToken(token),
+                        chatManager.getMessages(
+                                accountManager.getByName(accountManager.getByToken(token)).getId(),
                                 targetID, depth, n)
                 )
         );
