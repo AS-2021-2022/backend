@@ -12,27 +12,23 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CreateWorkflow.class)
 class CreateWorkflowTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private AccountManagerInterface accountManager;
-
     @Test
     public void createWorkflow() throws Exception {
-        final String user = accountManager.login("user1", "password1");
 
-        final RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/createWorkflow?token="+user+"&request=[{\"id\":\"user1\",\"description\":\"bababowie\"}]")
-                .accept(MediaType.APPLICATION_JSON);
-
-        mockMvc.perform(requestBuilder)
-                .andDo(print())
+        mockMvc.perform(post("/createWorkflow")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"xd\", \"steps\": [{\"id\":\"user1\",\"description\":\"bababowie\"}]}")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("status").value("accepted"))
                 .andReturn();
     }
-
 }

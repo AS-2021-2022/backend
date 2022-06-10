@@ -71,4 +71,8 @@ public class Workflow {
         }
         return false;
     }
+
+    public String toString() {
+        return "Workflow " + id + ": {" + name + ", step " + step + "}";
+    }
 }
