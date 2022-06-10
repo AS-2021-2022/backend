@@ -61,15 +61,16 @@ public class ChatManager {
     }
 
     public void sendMessage(String sender, String destId, String message) {
-        if (!destId.contains("@") && !idMessages.containsKey(destId)) {
-            idMessages.put(destId, new ArrayList<>());
-        } else if (!idMessages.containsKey(destId + sender) && !idMessages.containsKey(sender + destId)) {
-            destId = sender + destId;
-            idMessages.put(destId, new ArrayList<>());
-        } else if (idMessages.containsKey(destId + sender)) {
-            destId = destId + sender;
+        if (!destId.contains("@")) {
+            if (!idMessages.containsKey(destId)) {
+                idMessages.put(destId, new ArrayList<>());
+            }
         } else {
-            destId = sender + destId;
+            if (idMessages.containsKey(sender + destId)) {
+                destId = sender + destId;
+            } else {
+                destId = destId + sender;
+            }
         }
 
         System.out.println("DESTID: " + destId);
@@ -78,10 +79,14 @@ public class ChatManager {
     }
 
     public List<Message> getMessages(String sender, String chatID, int start, int n) {
-        if (idMessages.containsKey(chatID + sender)) {
-            chatID = chatID + sender;
-        } else if (idMessages.containsKey(sender + chatID)){
-            chatID = sender + chatID;
+
+
+        if (chatID.contains("@")) {
+            if (idMessages.containsKey(chatID + sender)) {
+                chatID = chatID + sender;
+            } else if (idMessages.containsKey(sender + chatID)) {
+                chatID = sender + chatID;
+            }
         }
 //        else {
 //            return new ArrayList<>();
