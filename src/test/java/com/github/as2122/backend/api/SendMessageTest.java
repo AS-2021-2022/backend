@@ -27,8 +27,11 @@ class SendMessageTest {
         final String sender = accountManager.login("user1", "password1");
         final String receiver = accountManager.login("user2", "password2");
 
+        final String target = accountManager.getByName(accountManager.getByToken(sender)).getId()
+                +accountManager.getByName(accountManager.getByToken(receiver)).getId();
+
         final RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/sendMessage?token="+sender+"&targetID="+receiver+"&message=someMessage")
+                .get("/sendMessage?token=" + sender + "&targetID=" + target + "&message=someMessage")
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
