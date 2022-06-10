@@ -82,9 +82,10 @@ public class ChatManager {
             chatID = chatID + sender;
         } else if (idMessages.containsKey(sender + chatID)){
             chatID = sender + chatID;
-        } else {
-            return new ArrayList<>();
         }
+//        else {
+//            return new ArrayList<>();
+//        }
 
         System.out.println("FinalChatId: " + chatID);
         return idMessages.get(chatID).stream().skip(start).limit(n).collect(Collectors.toList());
