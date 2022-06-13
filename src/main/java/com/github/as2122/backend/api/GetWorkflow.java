@@ -24,14 +24,10 @@ public class GetWorkflow {
 
     @GetMapping("/getWorkflow")
     public String getWorkflow(String token, int id) {
-//        GetWorkflowRequest getWorkflowRequest = (GetWorkflowRequest) jsonParser.fromJson(request, Request.class).getParams();
-//        if (getWorkflowRequest == null) {
-//            return jsonParser.toJson(new WorkflowResponse("rejected"));
-//        }
         final Workflow workflow = workflowManager.getWorkflow(id);
         if (workflow == null) {
             return jsonParser.toJson(new WorkflowResponse("rejected")); // Invalid workflow id
         }
-        return jsonParser.toJson(new GetWorkflowResponse("accepted", workflow.getName(), workflow.getSteps(), workflow.getFiles()));
+        return jsonParser.toJson(new GetWorkflowResponse("accepted", workflow.getName(), workflow.getSteps(), workflow.getFiles(), workflow.getStep()));
     }
 }
