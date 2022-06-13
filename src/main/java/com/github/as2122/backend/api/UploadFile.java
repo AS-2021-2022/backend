@@ -21,6 +21,8 @@ public class UploadFile {
                 .toUriString();
 
         final Path targetLocation = Path.of(uri);
+        if (file == null)
+            return "File not found";
         try {
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             if (Files.exists(targetLocation))
