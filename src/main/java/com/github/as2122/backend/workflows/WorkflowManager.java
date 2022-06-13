@@ -12,7 +12,7 @@ public class WorkflowManager {
     private final Map<Integer, Workflow> workflows = new HashMap<>();
 
     public WorkflowManager() {
-        workflows.put(0, new Workflow("name"));
+        workflows.put(0, new Workflow("name", new WorkflowStep[] {new WorkflowStep("user1@nsn.pt", "descricao")}));
     }
 
     public Map<Integer, Workflow> getWorkflows() {

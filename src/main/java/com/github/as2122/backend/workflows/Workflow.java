@@ -1,6 +1,9 @@
 package com.github.as2122.backend.workflows;
 
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
+
 
 public class Workflow {
     private static int STATIC_ID = 0;
@@ -58,7 +61,9 @@ public class Workflow {
         if (step >= steps.length) {
             return false;
         }
-        steps[step].setFileName(fileName);
+        if (fileName != null) {
+            steps[step].setFileName(fileName);
+        }
         step++;
         return true;
     }
@@ -73,6 +78,6 @@ public class Workflow {
     }
 
     public String toString() {
-        return "Workflow " + id + ": {" + name + ", step " + step + "}";
+        return "Workflow " + id + " {" + name + ", step " + step + ", [" + Arrays.stream(steps).map(WorkflowStep::toString).collect(Collectors.joining(", ")) + "]}";
     }
 }

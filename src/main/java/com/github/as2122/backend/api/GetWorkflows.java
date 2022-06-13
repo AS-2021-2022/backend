@@ -1,7 +1,9 @@
 package com.github.as2122.backend.api;
 
-import com.github.as2122.backend.accounts.AccountManager;
+import com.github.as2122.backend.accounts.Account;
 import com.github.as2122.backend.accounts.AccountManagerInterface;
+
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +29,12 @@ public class GetWorkflows {
     
     @GetMapping("/getWorkflows")
     public String getWorkflows(String token) {
-        final String user = accountManager.getByToken(token); // como ter o utilizador a partir do request???
-        final List<UserWorkflow> userWorkflows = workflowManager.getUserWorkflows(user);
-        return jsonParser.toJson(new WorkflowResponse("accepted", userWorkflows));
+        final String user = accountManager.getByToken(token);
+        if (user != null) {
+            Account account = accountManager.getByName(user);
+            final List<UserWorkflow> userWorkflows = workflowManager.getUserWorkflows(account.getId());
+            return jsonParser.toJson(new WorkflowResponse("accepted", userWorkflows));
+        }
+        return jsonParser.toJson(new WorkflowResponse("rejected"));
     }
 }

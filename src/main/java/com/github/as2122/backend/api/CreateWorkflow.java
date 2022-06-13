@@ -28,6 +28,7 @@ public class CreateWorkflow {
     public String createWorkflow(@RequestBody String body) {
         CreateWorkflowRequest createWorkflowRequest = jsonParser.fromJson(body, CreateWorkflowRequest.class);
         workflowManager.createWorkflow(new Workflow(createWorkflowRequest.getName(), createWorkflowRequest.getSteps()));
+        System.out.println(workflowManager.getWorkflow(1));
         return jsonParser.toJson(new WorkflowResponse("accepted"));
     }
 }

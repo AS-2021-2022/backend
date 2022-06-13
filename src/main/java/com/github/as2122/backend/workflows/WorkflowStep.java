@@ -30,4 +30,8 @@ public class WorkflowStep {
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
+
+    public String toString() {
+        return "WorkflowStep {" + id + ", " + description + (fileName != null ? ", " + fileName : "") + "}";
+    }
 }
