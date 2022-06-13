@@ -25,9 +25,10 @@ public class SendMessage {
     @GetMapping("/sendMessage")
     public String getMessage(String token, String targetID, String message) {
         chatManager.sendMessage(
-                targetID.contains("@") ?
-                        accountManager.getByName(accountManager.getByToken(token)).getId() :
-                        token,
+//                targetID.contains("@") ?
+//                        accountManager.getByName(accountManager.getByToken(token)).getId() :
+//                        token,
+                accountManager.getByName(accountManager.getByToken(token)).getId(),
                 targetID, message);
 
         return jsonParser.toJson(new SendMessageResponse("accepted"));
