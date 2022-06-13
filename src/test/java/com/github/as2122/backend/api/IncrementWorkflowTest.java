@@ -26,7 +26,7 @@ class IncrementWorkflowTest {
         final String user = accountManager.login("user1", "password1");
 
         final RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/incrementWorkflow?token="+user+"name=somefile.txt&id=0")
+                .get("/incrementWorkflow?token="+user+"&name=somefile.txt&id=0")
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)

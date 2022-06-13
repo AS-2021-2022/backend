@@ -77,6 +77,15 @@ public class Workflow {
         return false;
     }
 
+    public int getUserStep(String user) {
+        for (int i = 0; i < steps.length; i++) {
+            if (steps[i].getId().equals(user)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public String toString() {
         return "Workflow " + id + " {" + name + ", step " + step + ", [" + Arrays.stream(steps).map(WorkflowStep::toString).collect(Collectors.joining(", ")) + "]}";
     }

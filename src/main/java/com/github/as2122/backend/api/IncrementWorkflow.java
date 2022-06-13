@@ -27,17 +27,22 @@ public class IncrementWorkflow {
 
     @GetMapping("/incrementWorkflow")
     public String incrementWorkflow(String token, String name, int id) {
-        // assumes file is mandatory to increment workflow
-//        if (incrementWorkflowRequest == null) {
-//            return jsonParser.toJson(new WorkflowResponse("rejected"));
-//        }
-        String user = (accountManagerInterface.getByName(accountManagerInterface.getByToken(token))).getId();
-        /*
-        List<UserWorkflow> userWorkflows = workflowManager.getUserWorkflows(user);
-        if (!workflowManager.incrementWorkflow(id, name) || !userWorkflows.stream().anyMatch(x -> x.getWorkflow().equals(workflowManager.getWorkflow(id).getId()))) {
-            return jsonParser.toJson(new WorkflowResponse("rejected"));
+        final String user = (accountManagerInterface.getByName(accountManagerInterface.getByToken(token))).getId();
+        System.out.println(user);
+        final List<UserWorkflow> userWorkflows = workflowManager.getUserWorkflows(user);
+        
+        for (UserWorkflow userWorkflow: userWorkflows) {
+            if (userWorkflow.getWorkflow() == id) {
+                if (!workflowManager.incrementWorkflow(id, name)) {
+                    return jsonParser.toJson(new WorkflowResponse("rejected"));
+                }
+                Workflow workflow = workflowManager.getWorkflow(id);
+                if (workflow.getStep() >= workflow.getSteps().length) {
+                    workflowManager.deleteWorkflow(id);
+                }
+                return jsonParser.toJson(new WorkflowResponse("accepted"));
+            }
         }
-        */
-        return jsonParser.toJson(new WorkflowResponse("accepted"));
+        return jsonParser.toJson(new WorkflowResponse("rejected")); // User does not have permission to increment said workflow
     }
 }
