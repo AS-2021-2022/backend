@@ -14,10 +14,10 @@ import java.nio.file.StandardCopyOption;
 public class UploadFile {
 
     @PostMapping("/upload")
-    public String uploadFile(MultipartFile file, String name) {
+    public String uploadFile(MultipartFile file/*, String name*/) {
         final String uri = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
-                .path(name)
+                .path("./bababowie.txt")
                 .toUriString();
 
         final Path targetLocation = Path.of(uri);
