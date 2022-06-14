@@ -16,7 +16,7 @@ import java.util.Arrays;
 @RestController
 public class UploadFile {
 
-    private Path rootLocation = Path.of("./files/");
+    private Path rootLocation = Path.of("./");
 
     @PostMapping("/upload")
     public String uploadFile(MultipartFile file/*, String name*/) {
@@ -35,7 +35,9 @@ public class UploadFile {
                 return "IT WORKED!";
             return "File not saved";
         } catch (Exception e) {
-            return Arrays.toString(e.getStackTrace()).replaceAll(",", "\n");
+            return Arrays.toString(e.getStackTrace())
+                    .replaceAll(",", "\n")
+                    .replaceAll("([|])", "");
         }
     }
 
