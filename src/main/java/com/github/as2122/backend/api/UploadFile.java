@@ -52,6 +52,7 @@ public class UploadFile {
             Path destinationFile = this.rootLocation.resolve(
                             Paths.get(file.getOriginalFilename()))
                     .normalize().toAbsolutePath();
+            System.out.println("Saving to " + destinationFile);
             if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
                 // This is a security check
                 throw new Exception(
