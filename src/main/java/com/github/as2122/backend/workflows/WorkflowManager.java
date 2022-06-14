@@ -47,9 +47,15 @@ public class WorkflowManager {
         List<UserWorkflow> res = new ArrayList<>();
         for (Workflow wf: workflows.values()) {
             if (wf.userInWorkflow(user)) {
-                res.add(new UserWorkflow(wf.getName(), wf.getPending(user), wf.getId()));
+                res.add(new UserWorkflow(wf.getId(), wf.getName(), wf.getPending(user), wf.getUserStep(user)));
             }
         }
         return res;
+    }
+
+    public void deleteWorkflow(int workflowId) {
+        if (workflows.containsKey(workflowId)) {
+            workflows.remove(workflowId);
+        }
     }
 }
