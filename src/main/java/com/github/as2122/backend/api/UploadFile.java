@@ -30,7 +30,7 @@ public class UploadFile {
                 return "IT WORKED!";
             return "File not saved";
         } catch (IOException e) {
-            return "ERROR";
+            return "ERROR " + e.getStackTrace();
         }
     }
 }
