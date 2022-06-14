@@ -16,7 +16,7 @@ import java.util.Arrays;
 @RestController
 public class UploadFile {
 
-    private Path rootLocation = Path.of("./");
+    private Path rootLocation = Path.of("/app/files/");
 
     @PostMapping("/upload")
     public String uploadFile(MultipartFile file/*, String name*/) {
@@ -42,8 +42,10 @@ public class UploadFile {
     }
 
     private void store(MultipartFile file) throws Exception {
-        if (!(Files.exists(rootLocation) && Files.isDirectory(rootLocation)))
+        if (!(Files.exists(rootLocation) && Files.isDirectory(rootLocation))) {
             Files.createDirectory(rootLocation);
+            System.out.println("Created folder");
+        }
 
         try {
             if (file.isEmpty()) {
@@ -53,11 +55,11 @@ public class UploadFile {
                             Paths.get(file.getOriginalFilename()))
                     .normalize().toAbsolutePath();
             System.out.println("Saving to " + destinationFile);
-            if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
-                // This is a security check
-                throw new Exception(
-                        "Cannot store file outside current directory.");
-            }
+//            if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
+//                // This is a security check
+//                throw new Exception(
+//                        "Cannot store file outside current directory.");
+//            }
             try (InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, destinationFile,
                         StandardCopyOption.REPLACE_EXISTING);
