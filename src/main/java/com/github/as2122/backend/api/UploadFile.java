@@ -16,7 +16,7 @@ import java.util.Arrays;
 @RestController
 public class UploadFile {
 
-    private Path rootLocation = Path.of(".");
+    private Path rootLocation = Path.of("./files/");
 
     @PostMapping("/upload")
     public String uploadFile(MultipartFile file/*, String name*/) {
@@ -40,26 +40,28 @@ public class UploadFile {
     }
 
     private void store(MultipartFile file) throws Exception {
-            try {
-                if (file.isEmpty()) {
-                    throw new Exception("Failed to store empty file.");
-                }
-                Path destinationFile = this.rootLocation.resolve(
-                                Paths.get(file.getOriginalFilename()))
-                        .normalize().toAbsolutePath();
-                if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
-                    // This is a security check
-                    throw new Exception(
-                            "Cannot store file outside current directory.");
-                }
-                try (InputStream inputStream = file.getInputStream()) {
-                    Files.copy(inputStream, destinationFile,
-                            StandardCopyOption.REPLACE_EXISTING);
-                }
+        if (!(Files.exists(rootLocation) && Files.isDirectory(rootLocation)))
+            Files.createDirectory(rootLocation);
+
+        try {
+            if (file.isEmpty()) {
+                throw new Exception("Failed to store empty file.");
             }
-            catch (IOException e) {
-                throw new Exception("Failed to store file.", e);
+            Path destinationFile = this.rootLocation.resolve(
+                            Paths.get(file.getOriginalFilename()))
+                    .normalize().toAbsolutePath();
+            if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
+                // This is a security check
+                throw new Exception(
+                        "Cannot store file outside current directory.");
             }
+            try (InputStream inputStream = file.getInputStream()) {
+                Files.copy(inputStream, destinationFile,
+                        StandardCopyOption.REPLACE_EXISTING);
+            }
+        } catch (IOException e) {
+            throw new Exception("Failed to store file.", e);
+        }
 
     }
 }
