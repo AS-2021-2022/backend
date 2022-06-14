@@ -1,5 +1,8 @@
 package com.github.as2122.backend.api;
 
+import com.github.as2122.backend.api.responses.UploadFileResponse;
+import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,14 +19,15 @@ import java.util.Arrays;
 @RestController
 public class UploadFile {
 
+    private final Gson jsonParser;
     private Path rootLocation = Path.of("/app/files/");
 
+    public UploadFile(Gson jsonParser) {
+        this.jsonParser = jsonParser;
+    }
+
     @PostMapping("/upload")
-    public String uploadFile(MultipartFile file/*, String name*/) {
-        final String uri = ServletUriComponentsBuilder
-                .fromCurrentContextPath()
-                .path("./bababowie.txt")
-                .toUriString();
+    public String uploadFile(MultipartFile file) {
         if (file == null)
             return "File not found";
 
@@ -32,12 +36,10 @@ public class UploadFile {
             if (Files.exists(this.rootLocation.resolve(
                             Paths.get(file.getOriginalFilename()))
                     .normalize().toAbsolutePath()))
-                return "IT WORKED!";
-            return "File not saved";
+                return jsonParser.toJson(new UploadFileResponse("accepted"));
+            return jsonParser.toJson(new UploadFileResponse("rejected"));
         } catch (Exception e) {
-            return Arrays.toString(e.getStackTrace())
-                    .replaceAll(",", "\n")
-                    .replaceAll("([|])", "");
+            return jsonParser.toJson(new UploadFileResponse("rejected"));
         }
     }
 
