@@ -27,11 +27,11 @@ public class UploadFile {
         if (file == null)
             return "File not found";
 
-        final Path targetLocation = Path.of(uri);
-
         try {
             store(file);
-            if (Files.exists(targetLocation))
+            if (Files.exists(this.rootLocation.resolve(
+                            Paths.get(file.getOriginalFilename()))
+                    .normalize().toAbsolutePath()))
                 return "IT WORKED!";
             return "File not saved";
         } catch (Exception e) {
