@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 
 @RestController
 public class UploadFile {
@@ -30,7 +31,7 @@ public class UploadFile {
                 return "IT WORKED!";
             return "File not saved";
         } catch (IOException e) {
-            return "ERROR";
+            return "ERROR " + Arrays.toString(e.getStackTrace());
         }
     }
 }
