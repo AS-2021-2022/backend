@@ -28,7 +28,6 @@ public class IncrementWorkflow {
     @GetMapping("/incrementWorkflow")
     public String incrementWorkflow(String token, String name, int id) {
         final String user = (accountManagerInterface.getByName(accountManagerInterface.getByToken(token))).getId();
-        System.out.println(user);
         final List<UserWorkflow> userWorkflows = workflowManager.getUserWorkflows(user);
         
         for (UserWorkflow userWorkflow: userWorkflows) {

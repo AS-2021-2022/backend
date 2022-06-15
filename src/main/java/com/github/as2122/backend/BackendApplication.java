@@ -5,6 +5,7 @@ import com.github.as2122.backend.accounts.StaticAccountManager;
 import com.github.as2122.backend.api.requests.RequestDeserializer;
 import com.github.as2122.backend.api.requests.Request;
 import com.github.as2122.backend.chat.ChatManager;
+import com.github.as2122.backend.tasks.TaskManager;
 import com.github.as2122.backend.teams.TeamManager;
 import com.github.as2122.backend.workflows.WorkflowManager;
 import com.google.gson.Gson;
@@ -47,6 +48,11 @@ public class BackendApplication {
 	@Bean
 	public TeamManager teamManager() {
 		return new TeamManager(accountManager());
+	}
+
+	@Bean
+	public TaskManager taskManager() {
+		return new TaskManager();
 	}
 
 	@Bean

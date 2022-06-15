@@ -26,9 +26,6 @@ public class LoginController {
 //        final Login loginRequest = (Login) jsonParser.fromJson(request, Request.class).getParams();
         final Login loginRequest = new Login(username, password);
 
-        if (loginRequest == null)
-            return jsonParser.toJson(new LoginResponse("rejected", null));
-
         final String token = accountManager.login(loginRequest.getUsername(), loginRequest.getPassword());
         return token == null ? jsonParser.toJson(new LoginResponse("rejected", null)) : 
             jsonParser.toJson(new LoginResponse("accepted", token, accountManager.getByName(accountManager.getByToken(token)).getId()));
