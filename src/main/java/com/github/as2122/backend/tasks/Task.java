@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class Task {
@@ -26,7 +25,7 @@ public class Task {
     }
 
     public Task(String name, String startDate, String endDate, String priority, String assignee) {
-        this(name, startDate, endDate, priority, "", assignee);
+        this(name, startDate, endDate, priority, null, assignee);
     }
 
     public long getTimeLeft() {

@@ -29,4 +29,10 @@ public class TaskManager {
     public Task getTask(int id) {
         return tasks.containsKey(id) ? tasks.get(id) : null;
     }
+
+    public Integer assignTask(Task task) {
+        Integer key = tasks.size();
+        tasks.put(key, task);
+        return key;
+    }
 }
