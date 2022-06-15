@@ -35,4 +35,12 @@ public class TaskManager {
         tasks.put(key, task);
         return key;
     }
+
+    public boolean concludeTask(int id) {
+        if (!tasks.containsKey(id)) {
+            return false;
+        }
+        tasks.remove(id);
+        return true;
+    }
 }
