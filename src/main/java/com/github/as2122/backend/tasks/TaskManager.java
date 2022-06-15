@@ -25,4 +25,8 @@ public class TaskManager {
         }
         return res;
     }
+
+    public Task getTask(int id) {
+        return tasks.containsKey(id) ? tasks.get(id) : null;
+    }
 }

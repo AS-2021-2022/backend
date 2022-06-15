@@ -1,10 +1,10 @@
 package com.github.as2122.backend.api.responses;
 
 public class GetTaskResponse extends Response {
-    private String start;
-    private String end;
-    private String priority;
-    private String description;
+    private final String start;
+    private final String end;
+    private final String priority;
+    private final String description;
 
     public GetTaskResponse(String status, String start, String end, String priority, String description) {
         super(status);
@@ -12,5 +12,13 @@ public class GetTaskResponse extends Response {
         this.end = end;
         this.priority = priority;
         this.description = description;
+    }
+
+    public GetTaskResponse(String status) {
+        super(status);
+        this.start = null;
+        this.end = null;
+        this.priority = null;
+        this.description = null;
     }
 }
