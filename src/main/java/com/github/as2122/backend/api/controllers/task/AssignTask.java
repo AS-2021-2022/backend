@@ -2,6 +2,7 @@ package com.github.as2122.backend.api.controllers.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.as2122.backend.accounts.AccountLevel;
@@ -23,7 +24,7 @@ public class AssignTask {
         this.taskManager = taskManager;
     }
 
-    @GetMapping("/assignTask")
+    @PostMapping("/assignTask")
     public String assignTask(String token, String name, String start, String end, String priority, String description, String assignee_id) {
         AccountLevel userLevel = accountManagerInterface.getByName(accountManagerInterface.getByToken(token)).getLevel();
         if (userLevel == AccountLevel.EMPLOYEE && !assignee_id.equals("me")) {
