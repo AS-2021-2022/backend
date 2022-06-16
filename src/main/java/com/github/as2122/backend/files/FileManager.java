@@ -73,4 +73,8 @@ public class FileManager {
         }
         return false;
     }
+
+    public String getFileNameFromId(String fileID) {
+        return fileIdNameMap.getOrDefault(fileID, null);
+    } 
 }

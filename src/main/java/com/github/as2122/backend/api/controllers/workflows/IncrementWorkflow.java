@@ -26,13 +26,13 @@ public class IncrementWorkflow {
     }
 
     @GetMapping("/incrementWorkflow")
-    public String incrementWorkflow(String token, String name, int id) {
+    public String incrementWorkflow(String token, String file, int id) {
         final String user = (accountManagerInterface.getByName(accountManagerInterface.getByToken(token))).getId();
         final List<UserWorkflow> userWorkflows = workflowManager.getUserWorkflows(user);
 
         for (UserWorkflow userWorkflow : userWorkflows) {
             if (userWorkflow.getWorkflow() == id) {
-                if (!workflowManager.incrementWorkflow(id, name)) {
+                if (!workflowManager.incrementWorkflow(id, file)) {
                     return jsonParser.toJson(new WorkflowResponse("rejected"));
                 }
                 Workflow workflow = workflowManager.getWorkflow(id);

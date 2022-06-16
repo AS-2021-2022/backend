@@ -1,8 +1,11 @@
 package com.github.as2122.backend.workflows;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.List;
 import java.util.stream.Collectors;
+
+import com.github.as2122.backend.files.File;
 
 
 public class Workflow {
@@ -10,10 +13,10 @@ public class Workflow {
     private final int id;
     private final String name;
     private final WorkflowStep[] steps;
-    private final int[] files;
+    private final List<File> files;
     private int step = 0;
 
-    public Workflow(String name, WorkflowStep[] steps, int[] files) {
+    public Workflow(String name, WorkflowStep[] steps, List<File> files) {
         this.id = STATIC_ID++;
         this.name = name;
         this.steps = steps;
@@ -21,7 +24,7 @@ public class Workflow {
     }
 
     public Workflow(String name, WorkflowStep[] steps) {
-        this(name, steps, new int[0]);
+        this(name, steps, new ArrayList<>());
     }
 
     public Workflow(String name) {
@@ -40,7 +43,7 @@ public class Workflow {
         return steps;
     }
 
-    public int[] getFiles() {
+    public List<File> getFiles() {
         return files;
     }
 
@@ -57,12 +60,12 @@ public class Workflow {
         return false;
     }
 
-    public boolean increment(String fileName) {
+    public boolean increment(String fileID, String fileName) {
         if (step >= steps.length) {
             return false;
         }
-        if (fileName != null) {
-            steps[step].setFileName(fileName);
+        if (fileID != null) {
+            files.add(new File(fileID, fileName));
         }
         step++;
         return true;

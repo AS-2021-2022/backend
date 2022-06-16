@@ -5,10 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.github.as2122.backend.files.File;
+import com.github.as2122.backend.files.FileManager;
+
 //import org.springframework.stereotype.Component;
 
 //@Component
 public class WorkflowManager {
+    @Autowired
+    private FileManager fileManager;
     private final Map<Integer, Workflow> workflows = new HashMap<>();
 
     public WorkflowManager() {
@@ -35,11 +42,12 @@ public class WorkflowManager {
         return true;
     }
 
-    public boolean incrementWorkflow(int workflow, String fileName) {
+    public boolean incrementWorkflow(int workflow, String fileID) {
         if (!workflows.containsKey(workflow)) {
             return false;
         }
-        workflows.get(workflow).increment(fileName);
+        
+        workflows.get(workflow).increment(fileID, fileManager.getFileNameFromId(fileID));
         return true;
     }
 
