@@ -16,7 +16,11 @@ public class FileManager {
     private final Map<String, String> fileIdNameMap = new HashMap<>();
     private final Map<String, List<String>> userFiles = new HashMap<>();
 
-    private void storeFile(MultipartFile file, String userId) throws Exception {
+    public boolean canAccessFile(String userID, String fileID) {
+        return userFiles.containsKey(userID) && userFiles.get(userID).contains(fileID);
+    }
+
+    public String storeFile(MultipartFile file, String userId) throws Exception {
         if (!(Files.exists(rootLocation) && Files.isDirectory(rootLocation))) {
             Files.createDirectory(rootLocation);
             System.out.println("Created folder");
@@ -42,6 +46,7 @@ public class FileManager {
                 Files.copy(inputStream, destinationFile,
                         StandardCopyOption.REPLACE_EXISTING);
             }
+            return fileID;
         } catch (IOException e) {
             throw new Exception("Failed to store file.", e);
         }

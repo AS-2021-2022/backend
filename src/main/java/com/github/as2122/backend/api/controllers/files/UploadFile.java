@@ -1,6 +1,9 @@
 package com.github.as2122.backend.api.controllers.files;
 
+import com.github.as2122.backend.accounts.AccountManagerInterface;
+import com.github.as2122.backend.api.responses.SimpleResponse;
 import com.github.as2122.backend.api.responses.UploadFileResponse;
+import com.github.as2122.backend.files.FileManager;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.beans.SimpleBeanInfo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -20,26 +24,32 @@ import java.util.Arrays;
 public class UploadFile {
 
     private final Gson jsonParser;
+    private final AccountManagerInterface accountManager;
+    @Autowired
+    private FileManager fileManager;
+
     private Path rootLocation = Path.of("/app/files/");
 
-    public UploadFile(Gson jsonParser) {
+    public UploadFile(Gson jsonParser, AccountManagerInterface accountManager) {
         this.jsonParser = jsonParser;
+        this.accountManager = accountManager;
     }
 
     @PostMapping("/upload")
-    public String uploadFile(MultipartFile file) {
+    public String uploadFile(MultipartFile file, String token) {
         if (file == null)
             return "File not found";
 
+        final String userID = accountManager.getByName(accountManager.getByToken(token)).getId();
         try {
-            store(file);
+            final String fileID = fileManager.storeFile(file, userID);
             if (Files.exists(this.rootLocation.resolve(
-                            Paths.get(file.getOriginalFilename()))
+                            Paths.get(fileID))
                     .normalize().toAbsolutePath()))
-                return jsonParser.toJson(new UploadFileResponse("accepted"));
-            return jsonParser.toJson(new UploadFileResponse("rejected"));
+                return jsonParser.toJson(new SimpleResponse("accepted"));
+            return jsonParser.toJson(new SimpleResponse("rejected"));
         } catch (Exception e) {
-            return jsonParser.toJson(new UploadFileResponse("rejected"));
+            return jsonParser.toJson(new SimpleResponse("rejected"));
         }
     }
 
