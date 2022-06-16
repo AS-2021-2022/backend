@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FileManager {
     private final Path rootLocation = Path.of("/app/files/");
@@ -16,8 +17,10 @@ public class FileManager {
     private final Map<String, String> fileIdNameMap = new HashMap<>();
     private final Map<String, List<String>> userFiles = new HashMap<>();
 
-    public List<String> getAllUserFiles(String userID) {
-        return userFiles.get(userID);
+    public List<File> getAllUserFiles(String userID) {
+        return userFiles.get(userID).stream()
+                .map(id -> new File(fileIdNameMap.get(id), id))
+                .collect(Collectors.toList());
     }
 
     public boolean canAccessFile(String userID, String fileID) {
