@@ -7,7 +7,7 @@ public class GetWorkflowResponse extends Response {
     private final WorkflowStep[] steps;
     private final int[] files;
     private final int progress;
-    
+
     public GetWorkflowResponse(String status, String name, WorkflowStep[] steps, int[] files, int progress) {
         super(status);
         this.name = name;

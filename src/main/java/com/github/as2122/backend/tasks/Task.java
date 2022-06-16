@@ -39,7 +39,7 @@ public class Task {
             return TimeUnit.MINUTES.convert(additive.getTime() - subtractive.getTime(), TimeUnit.MILLISECONDS);
         } catch (ParseException p) {
             return 0L;
-        } 
+        }
     }
 
     public String getName() {

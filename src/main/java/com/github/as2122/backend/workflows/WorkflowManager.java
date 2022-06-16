@@ -12,7 +12,7 @@ public class WorkflowManager {
     private final Map<Integer, Workflow> workflows = new HashMap<>();
 
     public WorkflowManager() {
-        workflows.put(0, new Workflow("name", new WorkflowStep[] {new WorkflowStep("user1@nsn.pt", "descricao")}));
+        workflows.put(0, new Workflow("name", new WorkflowStep[]{new WorkflowStep("user1@nsn.pt", "descricao")}));
     }
 
     public Map<Integer, Workflow> getWorkflows() {
@@ -45,7 +45,7 @@ public class WorkflowManager {
 
     public List<UserWorkflow> getUserWorkflows(String user) {
         List<UserWorkflow> res = new ArrayList<>();
-        for (Workflow wf: workflows.values()) {
+        for (Workflow wf : workflows.values()) {
             if (wf.userInWorkflow(user)) {
                 res.add(new UserWorkflow(wf.getId(), wf.getName(), wf.getPending(user), wf.getUserStep(user)));
             }

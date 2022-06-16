@@ -16,6 +16,10 @@ public class FileManager {
     private final Map<String, String> fileIdNameMap = new HashMap<>();
     private final Map<String, List<String>> userFiles = new HashMap<>();
 
+    public List<String> getAllUserFiles(String userID) {
+        return userFiles.get(userID);
+    }
+
     public boolean canAccessFile(String userID, String fileID) {
         return userFiles.containsKey(userID) && userFiles.get(userID).contains(fileID);
     }

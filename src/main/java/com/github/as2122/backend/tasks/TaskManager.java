@@ -17,7 +17,7 @@ public class TaskManager {
 
     public List<TasksList> getTasksListFromUser(String user) {
         List<TasksList> res = new ArrayList<>();
-        for (Integer key: tasks.keySet()) {
+        for (Integer key : tasks.keySet()) {
             Task task = tasks.get(key);
             if (task.getAssignee().equals(user)) {
                 res.add(new TasksList(task.getName(), key, task.getTimeLeft()));

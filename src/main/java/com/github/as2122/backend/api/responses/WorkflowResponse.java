@@ -11,7 +11,7 @@ public class WorkflowResponse extends Response {
         super(status);
         workflows = null;
     }
-    
+
     public WorkflowResponse(String status, List<UserWorkflow> workflows) {
         super(status);
         this.workflows = workflows;

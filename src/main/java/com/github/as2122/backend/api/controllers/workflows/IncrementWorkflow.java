@@ -29,8 +29,8 @@ public class IncrementWorkflow {
     public String incrementWorkflow(String token, String name, int id) {
         final String user = (accountManagerInterface.getByName(accountManagerInterface.getByToken(token))).getId();
         final List<UserWorkflow> userWorkflows = workflowManager.getUserWorkflows(user);
-        
-        for (UserWorkflow userWorkflow: userWorkflows) {
+
+        for (UserWorkflow userWorkflow : userWorkflows) {
             if (userWorkflow.getWorkflow() == id) {
                 if (!workflowManager.incrementWorkflow(id, name)) {
                     return jsonParser.toJson(new WorkflowResponse("rejected"));

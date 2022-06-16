@@ -49,7 +49,7 @@ public class Workflow {
     }
 
     public boolean userInWorkflow(String id) {
-        for (WorkflowStep step: steps) {
+        for (WorkflowStep step : steps) {
             if (step.getId().equals(id)) {
                 return true;
             }

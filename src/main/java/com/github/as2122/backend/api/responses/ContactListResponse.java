@@ -8,6 +8,7 @@ import java.util.List;
 public class ContactListResponse extends Response {
     private final List<Group> groups;
     private final List<Contact> users;
+
     public ContactListResponse(String accepted, List<Group> groups, List<Contact> users) {
         super(accepted);
         this.groups = groups;

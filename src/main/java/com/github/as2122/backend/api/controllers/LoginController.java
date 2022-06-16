@@ -21,7 +21,7 @@ public class LoginController {
     @GetMapping("/login")
     public String login(String username, String password) {
         final String token = accountManager.login(username, password);
-        return token == null ? jsonParser.toJson(new LoginResponse("rejected", null)) : 
-            jsonParser.toJson(new LoginResponse("accepted", token, accountManager.getByName(accountManager.getByToken(token)).getId()));
+        return token == null ? jsonParser.toJson(new LoginResponse("rejected", null)) :
+                jsonParser.toJson(new LoginResponse("accepted", token, accountManager.getByName(accountManager.getByToken(token)).getId()));
     }
 }

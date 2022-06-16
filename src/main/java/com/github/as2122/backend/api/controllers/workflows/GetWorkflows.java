@@ -26,7 +26,7 @@ public class GetWorkflows {
         this.workflowManager = workflowManager;
         this.accountManager = accountManager;
     }
-    
+
     @GetMapping("/getWorkflows")
     public String getWorkflows(String token) {
         final String user = accountManager.getByToken(token);

@@ -25,8 +25,8 @@ public class GetTask {
     @GetMapping("/getTask")
     public String getTask(String token, int id) {
         Task task = taskManager.getTask(id);
-        return task != null ? 
-            gsonParser.toJson(new GetTaskResponse("accepted", task.getStartDate(), task.getEndDate(), task.getPriority(), task.getDescription()))
-            : gsonParser.toJson(new GetTaskResponse("rejected"));
+        return task != null ?
+                gsonParser.toJson(new GetTaskResponse("accepted", task.getStartDate(), task.getEndDate(), task.getPriority(), task.getDescription()))
+                : gsonParser.toJson(new GetTaskResponse("rejected"));
     }
 }

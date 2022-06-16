@@ -21,56 +21,56 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @SpringBootApplication
 public class BackendApplication {
 
-	@Bean
-	public Gson jsonParser() {
-		final GsonBuilder builder = new GsonBuilder();
+    @Bean
+    public Gson jsonParser() {
+        final GsonBuilder builder = new GsonBuilder();
 //		builder.registerTypeAdapter(Request.class, new RequestDeserializer());
 
-		return builder.create();
-	}
+        return builder.create();
+    }
 
-	@Bean
-	public AccountManagerInterface accountManager(){
-		return new StaticAccountManager();
-	}
+    @Bean
+    public AccountManagerInterface accountManager() {
+        return new StaticAccountManager();
+    }
 
-	@Bean
-	public ChatManager chatManager() {
-		return new ChatManager(accountManager());
-	}
+    @Bean
+    public ChatManager chatManager() {
+        return new ChatManager(accountManager());
+    }
 
-	@Bean
-	public WorkflowManager workflowManager() {
-		return new WorkflowManager();
-	}
+    @Bean
+    public WorkflowManager workflowManager() {
+        return new WorkflowManager();
+    }
 
-	@Bean
-	public TeamManager teamManager() {
-		return new TeamManager(accountManager());
-	}
+    @Bean
+    public TeamManager teamManager() {
+        return new TeamManager(accountManager());
+    }
 
-	@Bean
-	public TaskManager taskManager() {
-		return new TaskManager();
-	}
+    @Bean
+    public TaskManager taskManager() {
+        return new TaskManager();
+    }
 
-	@Bean
-	public FileManager fileManager() {
-		return new FileManager();
-	}
+    @Bean
+    public FileManager fileManager() {
+        return new FileManager();
+    }
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("*");
-			}
-		};
-	}
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*");
+            }
+        };
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(BackendApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BackendApplication.class, args);
+    }
 
 }
