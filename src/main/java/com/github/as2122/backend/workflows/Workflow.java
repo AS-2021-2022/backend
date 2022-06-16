@@ -69,10 +69,8 @@ public class Workflow {
     }
 
     public boolean getPending(String user) {
-        for (int i = step; i < steps.length; i++) {
-            if (Objects.equals(steps[i].getId(), user)) {
-                return true;
-            }
+        if (steps[step].getId().equals(user)) {
+            return true;
         }
         return false;
     }
