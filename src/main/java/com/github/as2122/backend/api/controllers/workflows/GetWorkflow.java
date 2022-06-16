@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.as2122.backend.api.requests.GetWorkflowRequest;
-import com.github.as2122.backend.api.requests.Request;
 import com.github.as2122.backend.api.responses.GetWorkflowResponse;
 import com.github.as2122.backend.api.responses.WorkflowResponse;
 import com.github.as2122.backend.workflows.Workflow;

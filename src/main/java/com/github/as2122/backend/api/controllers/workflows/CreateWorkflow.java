@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.as2122.backend.api.requests.CreateWorkflowRequest;
-import com.github.as2122.backend.api.requests.Request;
 import com.github.as2122.backend.api.responses.WorkflowResponse;
 import com.github.as2122.backend.workflows.Workflow;
 import com.github.as2122.backend.workflows.WorkflowManager;
