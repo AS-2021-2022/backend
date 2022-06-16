@@ -93,6 +93,8 @@ public class ChatManager {
 //        }
 
         System.out.println("FinalChatId: " + chatID);
-        return idMessages.get(chatID).stream().skip(start).limit(n).collect(Collectors.toList());
+        return idMessages.containsKey(chatID) ?
+                idMessages.get(chatID).stream().skip(start).limit(n).collect(Collectors.toList()):
+                new ArrayList<>();
     }
 }
