@@ -1,4 +1,4 @@
-package com.github.as2122.backend.api;
+package com.github.as2122.backend.api.controllers.files;
 
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;

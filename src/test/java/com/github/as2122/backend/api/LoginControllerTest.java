@@ -1,5 +1,6 @@
 package com.github.as2122.backend.api;
 
+import com.github.as2122.backend.api.controllers.LoginController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

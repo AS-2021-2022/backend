@@ -1,9 +1,6 @@
-package com.github.as2122.backend.api;
+package com.github.as2122.backend.api.controllers;
 
-import com.github.as2122.backend.accounts.Account;
 import com.github.as2122.backend.accounts.AccountManagerInterface;
-import com.github.as2122.backend.api.requests.Login;
-import com.github.as2122.backend.api.requests.Request;
 import com.github.as2122.backend.api.responses.LoginResponse;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +20,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(String username, String password) {
-//        final Login loginRequest = (Login) jsonParser.fromJson(request, Request.class).getParams();
-        final Login loginRequest = new Login(username, password);
-
-        final String token = accountManager.login(loginRequest.getUsername(), loginRequest.getPassword());
+        final String token = accountManager.login(username, password);
         return token == null ? jsonParser.toJson(new LoginResponse("rejected", null)) : 
             jsonParser.toJson(new LoginResponse("accepted", token, accountManager.getByName(accountManager.getByToken(token)).getId()));
     }

@@ -1,4 +1,4 @@
-package com.github.as2122.backend.api;
+package com.github.as2122.backend.api.controllers.workflows;
 
 import com.github.as2122.backend.accounts.Account;
 import com.github.as2122.backend.accounts.AccountManagerInterface;

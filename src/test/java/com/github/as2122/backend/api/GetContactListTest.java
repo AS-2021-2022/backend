@@ -1,13 +1,10 @@
 package com.github.as2122.backend.api;
 
 import com.github.as2122.backend.accounts.AccountManagerInterface;
-import com.github.as2122.backend.chat.ChatManager;
-import com.github.as2122.backend.teams.TeamManager;
+import com.github.as2122.backend.api.controllers.chat.GetContactList;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;

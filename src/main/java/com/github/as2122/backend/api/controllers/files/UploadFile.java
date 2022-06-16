@@ -1,4 +1,4 @@
-package com.github.as2122.backend.api;
+package com.github.as2122.backend.api.controllers.files;
 
 import com.github.as2122.backend.api.responses.UploadFileResponse;
 import com.google.gson.Gson;
@@ -69,6 +69,5 @@ public class UploadFile {
         } catch (IOException e) {
             throw new Exception("Failed to store file.", e);
         }
-
     }
 }

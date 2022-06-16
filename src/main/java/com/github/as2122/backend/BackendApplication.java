@@ -2,9 +2,8 @@ package com.github.as2122.backend;
 
 import com.github.as2122.backend.accounts.AccountManagerInterface;
 import com.github.as2122.backend.accounts.StaticAccountManager;
-import com.github.as2122.backend.api.requests.RequestDeserializer;
-import com.github.as2122.backend.api.requests.Request;
 import com.github.as2122.backend.chat.ChatManager;
+import com.github.as2122.backend.files.FileManager;
 import com.github.as2122.backend.tasks.TaskManager;
 import com.github.as2122.backend.teams.TeamManager;
 import com.github.as2122.backend.workflows.WorkflowManager;
@@ -25,7 +24,7 @@ public class BackendApplication {
 	@Bean
 	public Gson jsonParser() {
 		final GsonBuilder builder = new GsonBuilder();
-		builder.registerTypeAdapter(Request.class, new RequestDeserializer());
+//		builder.registerTypeAdapter(Request.class, new RequestDeserializer());
 
 		return builder.create();
 	}
@@ -53,6 +52,11 @@ public class BackendApplication {
 	@Bean
 	public TaskManager taskManager() {
 		return new TaskManager();
+	}
+
+	@Bean
+	public FileManager fileManager() {
+		return new FileManager();
 	}
 
 	@Bean

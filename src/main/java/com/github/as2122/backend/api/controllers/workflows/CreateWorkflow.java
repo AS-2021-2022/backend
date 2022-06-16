@@ -1,4 +1,4 @@
-package com.github.as2122.backend.api;
+package com.github.as2122.backend.api.controllers.workflows;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
