@@ -17,9 +17,9 @@ public class AssignTask {
     private final AccountManagerInterface accountManagerInterface;
     private final TaskManager taskManager;
 
-    public AssignTask(@Autowired Gson gsonParser, @Autowired AccountManagerInterface accountManagerInterface, @Autowired TaskManager taskManager) {
+    public AssignTask(@Autowired Gson gsonParser, @Autowired AccountManagerInterface accountManager, @Autowired TaskManager taskManager) {
         this.gsonParser = gsonParser;
-        this.accountManagerInterface = accountManagerInterface;
+        this.accountManagerInterface = accountManager;
         this.taskManager = taskManager;
     }
 

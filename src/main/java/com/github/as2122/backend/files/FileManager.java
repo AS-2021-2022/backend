@@ -16,6 +16,13 @@ public class FileManager {
 
     private final Map<String, String> fileIdNameMap = new HashMap<>();
     private final Map<String, List<String>> userFiles = new HashMap<>();
+    private final Map<Integer, List<String>> workflowFiles = new HashMap<>();
+
+    public void registerToWorkflow(int workflow, String file) {
+        if(!workflowFiles.containsKey(workflow))
+            workflowFiles.put(workflow, new ArrayList<>());
+        workflowFiles.get(workflow).add(file);
+    }
 
     public List<File> getAllUserFiles(String userID) {
         return userFiles.get(userID).stream()

@@ -72,10 +72,7 @@ public class Workflow {
     }
 
     public boolean getPending(String user) {
-        if (steps[step].getId().equals(user)) {
-            return true;
-        }
-        return false;
+        return steps[step].getId().equals(user);
     }
 
     public int getUserStep(String user) {
