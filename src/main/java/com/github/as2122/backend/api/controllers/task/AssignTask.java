@@ -24,7 +24,7 @@ public class AssignTask {
         this.taskManager = taskManager;
     }
 
-    @GetMapping("/assignTask")
+    @PostMapping("/assignTask")
     public String assignTask(String token, String name, String start, String end, String priority, String description, String assignee_id) {
         AccountLevel userLevel = accountManagerInterface.getByName(accountManagerInterface.getByToken(token)).getLevel();
         if (userLevel == AccountLevel.EMPLOYEE && !assignee_id.equals("me")) {
