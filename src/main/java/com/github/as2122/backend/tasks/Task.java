@@ -29,13 +29,13 @@ public class Task {
     }
 
     public long getTimeLeft() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
         try {
             Date additive = sdf.parse(endDate);
             Calendar today = Calendar.getInstance();
             Date subtractive = today.getTime();
-            // System.out.println("additive " + additive);
-            // System.out.println("subtractive " + subtractive);
+            System.out.println("additive " + additive);
+            System.out.println("subtractive " + subtractive);
             return TimeUnit.MINUTES.convert(additive.getTime() - subtractive.getTime(), TimeUnit.MILLISECONDS);
         } catch (ParseException p) {
             return 0L;
