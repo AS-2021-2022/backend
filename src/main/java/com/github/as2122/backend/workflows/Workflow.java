@@ -65,7 +65,7 @@ public class Workflow {
             return false;
         }
         if (fileID != null && fileName != null) {
-            files.add(new File(fileID, fileName));
+            files.add(new File(fileName, fileID));
         }
         step++;
         return true;
