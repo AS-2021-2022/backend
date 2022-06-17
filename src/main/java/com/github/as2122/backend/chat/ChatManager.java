@@ -68,8 +68,11 @@ public class ChatManager {
         } else {
             if (idMessages.containsKey(sender + destId)) {
                 destId = sender + destId;
-            } else {
+            } else if (idMessages.containsKey(destId + sender)) {
                 destId = destId + sender;
+            } else {
+                destId = sender + destId;
+                idMessages.put(sender + destId, new ArrayList<>());
             }
         }
 
