@@ -47,8 +47,14 @@ public class WorkflowManager {
         }
         Workflow wf = workflows.get(workflow);
         wf.increment(fileID, fileManager.getFileNameFromId(fileID));
+        // register file to workflow
+        if (fileID != null) {
+            fileManager.registerToWorkflow(workflow, fileID);
+        }
+        // delete workflow if done
         if (wf.isDone()) {
             deleteWorkflow(workflow);
+            fileManager.removeWorkflowFromMap(workflow);
         }
         return true;
     }

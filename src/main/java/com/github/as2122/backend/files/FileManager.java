@@ -24,10 +24,25 @@ public class FileManager {
         workflowFiles.get(workflow).add(file);
     }
 
+    public void removeWorkflowFromMap(int workflow) {
+        if (workflowFiles.containsKey(workflow)) {
+            workflowFiles.remove(workflow);
+        }
+    }
+
     public List<File> getAllUserFiles(String userID) {
         return userFiles.get(userID).stream()
                 .map(id -> new File(fileIdNameMap.get(id), id))
                 .collect(Collectors.toList());
+    }
+
+    public List<File> getAllWorkflowFiles(int workflowID) {
+        if (workflowFiles.containsKey(workflowID)) {
+            return workflowFiles.get(workflowID).stream()
+                    .map(x -> new File(getFileNameFromId(x), x))
+                    .collect(Collectors.toList());
+        }
+        return null;
     }
 
     public boolean canAccessFile(String userID, String fileID) {
