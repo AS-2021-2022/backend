@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.github.as2122.backend.files.File;
 import com.github.as2122.backend.files.FileManager;
 
 //import org.springframework.stereotype.Component;
@@ -46,8 +45,11 @@ public class WorkflowManager {
         if (!workflows.containsKey(workflow)) {
             return false;
         }
-        
-        workflows.get(workflow).increment(fileID, fileManager.getFileNameFromId(fileID));
+        Workflow wf = workflows.get(workflow);
+        wf.increment(fileID, fileManager.getFileNameFromId(fileID));
+        if (wf.isDone()) {
+            deleteWorkflow(workflow);
+        }
         return true;
     }
 

@@ -84,6 +84,10 @@ public class Workflow {
         return -1;
     }
 
+    public boolean isDone() {
+        return step >= steps.length;
+    }
+
     public String toString() {
         return "Workflow " + id + " {" + name + ", step " + step + ", [" + Arrays.stream(steps).map(WorkflowStep::toString).collect(Collectors.joining(", ")) + "]}";
     }

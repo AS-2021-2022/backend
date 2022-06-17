@@ -35,10 +35,6 @@ public class IncrementWorkflow {
                 if (!workflowManager.incrementWorkflow(id, file)) {
                     return jsonParser.toJson(new WorkflowResponse("rejected"));
                 }
-                Workflow workflow = workflowManager.getWorkflow(id);
-                if (workflow.getStep() >= workflow.getSteps().length) {
-                    workflowManager.deleteWorkflow(id);
-                }
                 return jsonParser.toJson(new WorkflowResponse("accepted"));
             }
         }
