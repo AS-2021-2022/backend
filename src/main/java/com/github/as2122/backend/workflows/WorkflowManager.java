@@ -18,7 +18,12 @@ public class WorkflowManager {
     private final Map<Integer, Workflow> workflows = new HashMap<>();
 
     public WorkflowManager() {
-        workflows.put(0, new Workflow("name", new WorkflowStep[]{new WorkflowStep("user1@nsn.pt", "descricao")}));
+        workflows.put(0, new Workflow("Seguro da empresa TBNS", new WorkflowStep[] {
+                new WorkflowStep("user1@nsn.pt", "Provisionar formulário de adesão"), 
+                new WorkflowStep("user2@nsn.pt", "Verificar estatuto da empresa"), 
+                new WorkflowStep("user4@nsn.pt", "Calcular prejuízos e propor valor"),
+                new WorkflowStep("user1@nsn.pt", "Notificar empresa")
+            }));
     }
 
     public Map<Integer, Workflow> getWorkflows() {
