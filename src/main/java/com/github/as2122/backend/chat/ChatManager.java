@@ -72,7 +72,7 @@ public class ChatManager {
                 destId = destId + sender;
             } else {
                 destId = sender + destId;
-                idMessages.put(sender + destId, new ArrayList<>());
+                idMessages.put(destId, new ArrayList<>());
             }
         }
 
