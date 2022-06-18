@@ -7,16 +7,16 @@ import com.github.as2122.backend.workflows.WorkflowStep;
 
 public class GetWorkflowResponse extends Response {
     private final String name;
+    private final int progress;
     private final WorkflowStep[] steps;
     private final List<File> files;
-    private final int progress;
 
     public GetWorkflowResponse(String status, String name, WorkflowStep[] steps, List<File> files, int progress) {
         super(status);
         this.name = name;
+        this.progress = progress;
         this.steps = steps;
         this.files = files;
-        this.progress = progress;
     }
 
     public GetWorkflowResponse(String status, String name, WorkflowStep[] steps, List<File> files) {

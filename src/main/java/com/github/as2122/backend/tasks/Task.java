@@ -25,7 +25,7 @@ public class Task {
     }
 
     public Task(String name, String startDate, String endDate, String priority, String assignee) {
-        this(name, startDate, endDate, priority, null, assignee);
+        this(name, startDate, endDate, priority, "", assignee);
     }
 
     public long getTimeLeft() {
@@ -34,8 +34,8 @@ public class Task {
             Date additive = sdf.parse(endDate);
             Calendar today = Calendar.getInstance();
             Date subtractive = today.getTime();
-            System.out.println("additive " + additive);
-            System.out.println("subtractive " + subtractive);
+            // System.out.println("additive " + additive);
+            // System.out.println("subtractive " + subtractive);
             return TimeUnit.MINUTES.convert(additive.getTime() - subtractive.getTime(), TimeUnit.MILLISECONDS);
         } catch (ParseException p) {
             return 0L;
