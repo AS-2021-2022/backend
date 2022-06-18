@@ -1,8 +1,7 @@
-package com.github.as2122.backend.api;
+package com.github.as2122.backend.api.controllers.tasks;
 
 import com.github.as2122.backend.accounts.AccountManagerInterface;
-import com.github.as2122.backend.api.controllers.chat.SendMessage;
-import com.github.as2122.backend.chat.ChatManager;
+import com.github.as2122.backend.api.controllers.task.ConcludeTask;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -14,36 +13,39 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-@WebMvcTest(SendMessage.class)
-class SendMessageTest {
-
+@WebMvcTest(ConcludeTask.class)
+class ConcludeTaskTest {
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
     private AccountManagerInterface accountManager;
 
-    @Autowired
-    private ChatManager chatManager;
-
     @Test
-    public void sendMessageWhenLoggedIn() throws Exception {
-        final String sender = accountManager.login("user1", "password1");
-        final String receiver = accountManager.login("user2", "password2");
-
-        final String target = accountManager.getByName(accountManager.getByToken(receiver)).getId();
+    public void testConcludeTask() throws Exception {
+        final String user = accountManager.login("user1", "password1");
 
         final RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/sendMessage?token=" + sender + "&targetID=" + target + "&message=someMessage")
+                .get("/concludeTask?token=" + user + "&id=0")
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
-                .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("status").value("accepted"))
+                .andDo(print())
                 .andReturn();
+    }
 
-        chatManager.getMessages(
-                accountManager.getByName(accountManager.getByToken(sender)).getId(), target, 0, 100)
-                .forEach(message -> System.out.println(message.getOrigin() + ": " + message.getText()));
+    @Test
+    public void testConcludeNonExistentTask() throws Exception {
+        final String user = accountManager.login("user1", "password1");
+
+        final RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .get("/concludeTask?token=" + user + "&id=23")
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.jsonPath("status").value("rejected"))
+                .andDo(print())
+                .andReturn();
     }
 }

@@ -1,4 +1,4 @@
-package com.github.as2122.backend.api;
+package com.github.as2122.backend.api.controllers.workflows;
 
 import com.github.as2122.backend.accounts.AccountManagerInterface;
 import com.github.as2122.backend.api.controllers.workflows.IncrementWorkflow;
@@ -26,7 +26,7 @@ class IncrementWorkflowTest {
         final String user = accountManager.login("user1", "password1");
 
         final RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/incrementWorkflow?token="+user+"&file=somefile.txt&id=0")
+                .get("/incrementWorkflow?token=" + user + "&file=somefile.txt&id=0")
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)

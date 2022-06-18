@@ -1,4 +1,4 @@
-package com.github.as2122.backend.api;
+package com.github.as2122.backend.api.controllers;
 
 import com.github.as2122.backend.accounts.AccountLevel;
 import com.github.as2122.backend.accounts.AccountManagerInterface;
@@ -27,7 +27,7 @@ class GetUserTypeTest {
         final String token = accountManager.login("user1", "password1");
 
         final RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/getUserType?token="+token)
+                .get("/getUserType?token=" + token)
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)

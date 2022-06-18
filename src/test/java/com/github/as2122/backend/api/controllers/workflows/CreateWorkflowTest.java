@@ -1,4 +1,4 @@
-package com.github.as2122.backend.api;
+package com.github.as2122.backend.api.controllers.workflows;
 
 import com.github.as2122.backend.api.controllers.workflows.CreateWorkflow;
 import org.junit.jupiter.api.Test;
@@ -21,9 +21,9 @@ class CreateWorkflowTest {
     public void createWorkflow() throws Exception {
 
         mockMvc.perform(post("/createWorkflow")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"xd\", \"steps\": [{\"id\":\"user1\",\"description\":\"bababowie\"}]}")
-                .accept(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\":\"xd\", \"steps\": [{\"id\":\"user1\",\"description\":\"bababowie\"}]}")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.jsonPath("status").value("accepted"))

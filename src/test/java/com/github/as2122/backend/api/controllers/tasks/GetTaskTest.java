@@ -1,6 +1,7 @@
-package com.github.as2122.backend.api;
+package com.github.as2122.backend.api.controllers.tasks;
 
-import com.github.as2122.backend.api.controllers.LoginController;
+import com.github.as2122.backend.accounts.AccountManagerInterface;
+import com.github.as2122.backend.api.controllers.task.GetTask;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -12,39 +13,39 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-//@RunWith(SpringRunner.class)
-//@WithMockUser
-@WebMvcTest(LoginController.class)
-class LoginControllerTest {
-
+@WebMvcTest(GetTask.class)
+class GetTaskTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private AccountManagerInterface accountManager;
+
     @Test
-    void testLoginCorrect() throws Exception {
+    public void testGetTask() throws Exception {
+        final String user = accountManager.login("user1", "password1");
+
         final RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/login?username=user1&password=password1")
+                .get("/getTask?token=" + user + "&id=0")
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
-                .andDo(print())
-                .andExpect(MockMvcResultMatchers.jsonPath("token").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("token").isNotEmpty())
                 .andExpect(MockMvcResultMatchers.jsonPath("status").value("accepted"))
-                .andExpect(MockMvcResultMatchers.jsonPath("email").value("user1@nsn.pt"))
+                .andDo(print())
                 .andReturn();
     }
 
     @Test
-    void testLoginIncorrect() throws Exception {
+    public void testGetNonExistentTask() throws Exception {
+        final String user = accountManager.login("user1", "password1");
+
         final RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/login?username=notExists&password=strongandcomplicatedpassword")
+                .get("/getTask?token=" + user + "&id=1")
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
-                .andDo(print())
-                .andExpect(MockMvcResultMatchers.jsonPath("token").doesNotExist())
                 .andExpect(MockMvcResultMatchers.jsonPath("status").value("rejected"))
                 .andReturn();
     }
 }
+

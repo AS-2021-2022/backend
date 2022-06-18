@@ -1,4 +1,4 @@
-package com.github.as2122.backend.api;
+package com.github.as2122.backend.api.controllers.chat;
 
 import com.github.as2122.backend.accounts.AccountManagerInterface;
 import com.github.as2122.backend.api.controllers.chat.GetContactMessages;
@@ -27,7 +27,7 @@ class GetContactMessagesTest {
 //        final String receiver = accountManager.login("user2", "password2");
 
         final RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/contactMessages?token="+sender+"&targetID="+"g10001"+"&depth=0&n=10")
+                .get("/contactMessages?token=" + sender + "&targetID=" + "g10001" + "&depth=0&n=10")
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
@@ -43,7 +43,7 @@ class GetContactMessagesTest {
         final String usr2 = accountManager.login("user2", "password2");
 
         final RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/contactMessages?token="+usr1+"&targetID="+"user2@nsn.pt"+"&depth=0&n=10")
+                .get("/contactMessages?token=" + usr1 + "&targetID=" + "user2@nsn.pt" + "&depth=0&n=10")
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
@@ -54,7 +54,7 @@ class GetContactMessagesTest {
                 .andReturn();
 
         final RequestBuilder requestBuilder2 = MockMvcRequestBuilders
-                .get("/contactMessages?token="+usr2+"&targetID="+"user1@nsn.pt"+"&depth=0&n=10")
+                .get("/contactMessages?token=" + usr2 + "&targetID=" + "user1@nsn.pt" + "&depth=0&n=10")
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder2)
