@@ -8,4 +8,20 @@ public class File {
         this.name = name;
         this.id = id;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "File{" +
+                "name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }

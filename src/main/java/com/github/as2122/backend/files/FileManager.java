@@ -39,7 +39,7 @@ public class FileManager {
     public List<File> getAllWorkflowFiles(int workflowID) {
         if (workflowFiles.containsKey(workflowID)) {
             return workflowFiles.get(workflowID).stream()
-                    .map(x -> new File(getFileNameFromId(x), x))
+                    .map(x -> new File(x, getFileNameFromId(x)))
                     .collect(Collectors.toList());
         }
         return null;
