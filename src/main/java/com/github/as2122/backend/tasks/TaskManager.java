@@ -12,7 +12,7 @@ public class TaskManager {
     private final Map<Integer, Task> tasks = new HashMap<>();
 
     public TaskManager() {
-        tasks.put(0, new Task("Elaborar formulário de pedido de seguro", "2022-06-24T17:22:01.999+00:00", "2022-06-24T23:59:59.999+00:00", "urgent", "user1@nsn.pt"));
+        tasks.put(0, new Task("Elaborar formulário de pedido de seguro", "2022-06-24T17:22:01.999+00:00", "2022-06-30T23:59:59.999+00:00", "urgent", "user1@nsn.pt"));
     }
 
     public List<TasksList> getTasksListFromUser(String user) {
