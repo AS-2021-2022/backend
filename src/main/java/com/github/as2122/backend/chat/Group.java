@@ -8,4 +8,8 @@ public class Group {
         this.name = name;
         this.id = id;
     }
+
+    public String getName() {
+        return name;
+    }
 }

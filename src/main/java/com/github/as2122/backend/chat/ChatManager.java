@@ -1,9 +1,6 @@
 package com.github.as2122.backend.chat;
 
 import com.github.as2122.backend.accounts.AccountManagerInterface;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.MessageSourceAccessor;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,12 +26,13 @@ public class ChatManager {
         g1.add(accountManager.getByName("user3").toContact());
 
         final List<Contact> g2 = new ArrayList<>();
-        g1.add(accountManager.getByName("user5").toContact());
-        g1.add(accountManager.getByName("user6").toContact());
+        g2.add(accountManager.getByName("user2").toContact());
+        g2.add(accountManager.getByName("user5").toContact());
+        g2.add(accountManager.getByName("user6").toContact());
 
         final List<Contact> g3 = new ArrayList<>();
-        g1.add(accountManager.getByName("user7").toContact());
-        g1.add(accountManager.getByName("user8").toContact());
+        g3.add(accountManager.getByName("user7").toContact());
+        g3.add(accountManager.getByName("user8").toContact());
 
         groups.put(new Group("g1", "g10001"), g1);
         groups.put(new Group("g2", "g20002"), g2);
@@ -97,7 +95,7 @@ public class ChatManager {
 
         System.out.println("FinalChatId: " + chatID);
         return idMessages.containsKey(chatID) ?
-                idMessages.get(chatID).stream().skip(start).limit(n).collect(Collectors.toList()):
+                idMessages.get(chatID).stream().skip(start).limit(n).collect(Collectors.toList()) :
                 new ArrayList<>();
     }
 }
