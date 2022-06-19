@@ -26,7 +26,7 @@ class AssignTaskTest {
         final String user = accountManager.login("user3", "password3");
 
         final RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/assignTask?token=" + user + "&name=fortynayt&start=16/06/2022&end=30/06/2022&priority=default&assignee_id=user1@nsn.pt")
+                .get("/assignTask?token=" + user + "&name=fortynayt&start=16/06/2022&end=30/06/2022&priority=default&assignee_id=user1@nsn.pt&description=babagee")
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
