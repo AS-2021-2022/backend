@@ -1,8 +1,6 @@
 package com.github.as2122.backend.api.controllers.workflows;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +24,6 @@ public class CreateWorkflow {
     public String createWorkflow(@RequestBody String body) {
         CreateWorkflowRequest createWorkflowRequest = jsonParser.fromJson(body, CreateWorkflowRequest.class);
         workflowManager.createWorkflow(new Workflow(createWorkflowRequest.getName(), createWorkflowRequest.getSteps()));
-        System.out.println(workflowManager.getWorkflow(1));
         return jsonParser.toJson(new WorkflowResponse("accepted"));
     }
 }
