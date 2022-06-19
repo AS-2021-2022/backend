@@ -4,4 +4,8 @@ public class SimpleResponse extends Response {
     public SimpleResponse(String status) {
         super(status);
     }
+
+    public SimpleResponse(String status, String info) {
+        super(status, info);
+    }
 }
