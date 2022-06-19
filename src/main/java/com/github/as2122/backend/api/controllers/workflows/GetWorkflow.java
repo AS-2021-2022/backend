@@ -32,9 +32,9 @@ public class GetWorkflow {
             return rejectedResponse; // Invalid workflow id
         }
         String name = workflow.getName();
-        WorkflowStep[] steps = workflow.getSteps();
         if (name == null || name.isBlank())
             return rejectedResponse;
+        WorkflowStep[] steps = workflow.getSteps();
         if (steps == null || steps.length == 0)
             return rejectedResponse;
         return jsonParser.toJson(new GetWorkflowResponse("accepted", name, steps, workflow.getFiles(), workflow.getStep()));

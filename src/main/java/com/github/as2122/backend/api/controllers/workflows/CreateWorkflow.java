@@ -5,9 +5,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.as2122.backend.api.responses.SimpleResponse;
 import com.github.as2122.backend.api.responses.WorkflowResponse;
 import com.github.as2122.backend.workflows.Workflow;
 import com.github.as2122.backend.workflows.WorkflowManager;
+import com.github.as2122.backend.workflows.WorkflowStep;
 import com.google.gson.Gson;
 
 @RestController
@@ -23,7 +25,25 @@ public class CreateWorkflow {
     @PostMapping("/createWorkflow")
     public String createWorkflow(@RequestBody String body) {
         CreateWorkflowRequest createWorkflowRequest = jsonParser.fromJson(body, CreateWorkflowRequest.class);
-        workflowManager.createWorkflow(new Workflow(createWorkflowRequest.getName(), createWorkflowRequest.getSteps()));
+        String name = createWorkflowRequest.getName();
+        WorkflowStep[] steps = createWorkflowRequest.getSteps();
+        if (name == null || name.isBlank()) {
+            return jsonParser.toJson(new SimpleResponse("rejected", "Invalid fields"));
+        }
+        if (steps == null || steps.length == 0) {
+            return jsonParser.toJson(new SimpleResponse("rejected", "Invalid fields"));
+        }
+        for (WorkflowStep step: steps) {
+            String user = step.getId();
+            if (user == null || user.isBlank()) {
+                return jsonParser.toJson(new SimpleResponse("rejected", "Invalid fields"));
+            }
+            String description = step.getDescription();
+            if (description == null || description.isBlank()) {
+                return jsonParser.toJson(new SimpleResponse("rejected", "Invalid fields"));
+            }
+        }
+        workflowManager.createWorkflow(new Workflow(name, steps));
         return jsonParser.toJson(new WorkflowResponse("accepted"));
     }
 }
